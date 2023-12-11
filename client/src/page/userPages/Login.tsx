@@ -2,23 +2,33 @@ import React from "react";
 import { Navbar } from "../../components";
 import foodimg from "../../assets/login_food.png";
 import { Link } from "react-router-dom";
+import glogo from '../../assets/googlelogo.png'
 
 const Login = () => {
   return (
     <div className="bg-[#e5d9ca] h-screen ">
       <Navbar />
 
-      <div className="flex flex-row w-full gap-[90px] justify-center mt-[100px] ">
-        <div className="  ">
-          <img className="w-[680px] h-[680px]  " src={foodimg} alt="" />
-        </div>
-        <div className=" h-[680px] w-[470px] rounded-[10px] bg-[#f4eeee] ">
-          <div className="">
-            <div className="text-center text-lg font-bold text-[30px] mt-[50px]">
-              <h1>Login</h1>
-            </div>
+      <div className="container h-[90%] flex justify-center items-center mx-auto ">
+        <div className="flex flex-row w-full h-full flex-wrap  justify-center items-center p-10 " >
+          {/* sm:bg-black lg:bg-black md:bg-amber-500 xl:bg-red-500 2xl:bg-cyan-500 "> */}
+          
+          <div className="  hidden xl:flex w-1/2 ">
+            <img
+              className=" h-[600px]  rounded-l-[10px]  lg:h-[600px] object-cover w-full "
+              // h-[450px] 2xl:w-[680px] xl:h-[40px]  2xl:h-[680px]  "
+              src={foodimg}
+              alt=""
+            />
+          </div>
 
-            <form className="max-w-sm mx-auto mt-10 ">
+          <div className=" flex justify-center h-full max-h-[600px]  ">
+            <div className=" w-full px-10  max-h-[600px] lg:w-[470px] rounded-r-[10px] shadow-md bg-[#f4eeee]">
+              <div className="text-center text-lg font-bold text-[30px] mt-[50px]">
+                <h1>Login</h1>
+              </div>
+
+              <form className="max-w-sm mx-auto mt-10 ">
               <div className="mb-5">
                 <label
                   htmlFor="email"
@@ -67,7 +77,7 @@ const Login = () => {
                     htmlFor="terms"
                     className="ms-2 text-sm font-medium text-gray-900 "
                   >
-                    Remember me{" "}
+                    Remember me
                   </label>
                 </div>
 
@@ -75,18 +85,27 @@ const Login = () => {
                   Forgot password?
                 </Link>
               </div>
-              <div className="flex flex-col">
 
 
-              <div className="h-1 bg-[#D9D9D9]">
-
+              <div className="flex flex-row gap-5 mb-4 items-center ">
+              <div className="h-[2px] w-[40%] bg-[#D9D9D9]"></div>
+              <p>OR</p>
+              <div className="h-[2px] w-[40%] bg-[#D9D9D9]"></div>
               </div>
+
+              <div className="w-full px-6 " >
+
+
+              <button className="flex w-full bg-white py-2 rounded shadow-md mb-4 text-black justify-center gap-4  ">
+                <img src={glogo} alt="" ></img>
+                <p>Sign in with Google</p>
+              </button>
               </div>
 
-              <div className="flex justify-center">
+              <div className="flex justify-center w-full px-6 ">
                 <button
                   type="submit"
-                  className="  text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-14 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  className="  text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm lg:w-full  sm:w-auto px-14 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                   Submit
                 </button>
@@ -110,9 +129,12 @@ const Login = () => {
                 </p>
               </div>
             </form>
+            </div>
           </div>
         </div>
       </div>
+
+      
     </div>
   );
 };
