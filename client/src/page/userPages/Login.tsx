@@ -1,29 +1,30 @@
 import React from "react";
 import { Navbar } from "../../components";
+import '../../index.css'
 import foodimg from "../../assets/login_food.png";
 import { Link } from "react-router-dom";
 import glogo from '../../assets/googlelogo.png'
 
 const Login = () => {
   return (
-    <div className="bg-[#e5d9ca] h-screen ">
+    <div className="bg-[#e5d9ca] h-[100vh] w-full ">
       <Navbar />
 
-      <div className="container h-[90%] flex justify-center items-center mx-auto ">
-        <div className="flex flex-row w-full h-full flex-wrap  justify-center items-center p-10 " >
-          {/* sm:bg-black lg:bg-black md:bg-amber-500 xl:bg-red-500 2xl:bg-cyan-500 "> */}
+      <div className="container custom-height flex justify-center items-center mx-auto ">
+        <div className="flex flex-row w-full h-full flex-wrap  justify-center items-center   2xl:p-8 " >
+          
           
           <div className="  hidden xl:flex w-1/2 ">
             <img
               className=" h-[600px]  rounded-l-[10px]  lg:h-[600px] object-cover w-full "
-              // h-[450px] 2xl:w-[680px] xl:h-[40px]  2xl:h-[680px]  "
+              
               src={foodimg}
               alt=""
             />
           </div>
 
-          <div className=" flex justify-center h-full max-h-[600px]  ">
-            <div className=" w-full px-10  max-h-[600px] lg:w-[470px] rounded-r-[10px] shadow-md bg-[#f4eeee]">
+          <div className=" flex justify-center    ">
+            <div className=" w-full px-10 lg:h-[600px] lg:w-[470px] rounded-r-[10px] bg-[#f4eeee]">
               <div className="text-center text-lg font-bold text-[30px] mt-[50px]">
                 <h1>Login</h1>
               </div>

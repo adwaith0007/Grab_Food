@@ -1,25 +1,53 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
+import { userDataProps } from "../../types";
 import { Navbar } from "../../components";
+import '../../index.css'
 import foodimg from "../../assets/login_food.png";
 import { Link } from "react-router-dom";
+
+
+// interface signupProps{ 
+//   user : userDataProps
+// }
+
+
 const Signup = () => {
+
+//   const [userData,setUserData ] = useState({
+//     fname:"",
+//     lname:"",
+//     userid:"",
+
+
+//   })
+
+  // function handleUserForm(e){
+
+  //   const newdata = {...userData}
+
+  //   newdata[e.target.id] = e.target.value
+  //   setUserData(newdata)
+
+  // }
+
   return (
-    <div className="bg-[#e5d9ca] h-screen w-full ">
+    <div className="bg-[#e5d9ca] h-[100vh]    w-full ">
       <Navbar />
-      <div className="container h-[90%] flex justify-center items-center mx-auto ">
-      <div className="flex flex-row w-full h-full flex-wrap  justify-center items-center p-8 " >
-          {/* sm:bg-black lg:bg-black md:bg-amber-500 xl:bg-red-500 2xl:bg-cyan-500 "> */}
+      <div className="container custom-height flex justify-center items-center mx-auto  ">
+      <div className="flex flex-row w-full h-full flex-wrap  justify-center items-center   2xl:p-8 xl:bg-gray-600 2xl:bg-black " >
+          
           
           <div className="  hidden xl:flex w-1/2  ">
             <img
-              className=" h-[600px]  rounded-l-[10px]  lg:h-[600px] object-cover w-full  "
+              className=" h-[600px]  rounded-l-[10px]  2xl:h-[600px] object-cover w-full  "
               src={foodimg}
               alt=""
             />
           </div>
 
           <div className=" flex justify-center   ">
-            <div className=" w-full px-10 lg:h-[600px] lg:w-[470px] rounded-r-[10px] bg-[#f4eeee]">
+            <div className=" w-full px-10 h-[600px] 2xl:h-[600px] lg:w-[470px] rounded-r-[10px] bg-[#f4eeee]">
               <div className="text-center text-lg font-bold text-[30px] mt-[20px]">
                 <h1>Register</h1>
               </div>
@@ -37,6 +65,7 @@ const Signup = () => {
                       type="text"
                       id="fname"
                       name="fname"
+                      value={userData.fname}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                       required
                     />
@@ -53,6 +82,7 @@ const Signup = () => {
                       type="text"
                       id="lname"
                       name="lname"
+                      value={userData.lname}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                       required
                     />
@@ -145,6 +175,16 @@ const Signup = () => {
                       className="font-medium text-blue-600 hover:underline "
                     >
                       Login
+                    </Link>
+
+                    <Link
+                      to="/otp"
+                      className="font-medium text-blue-600 hover:underline "
+                    >
+                      <br/>
+                        
+                        otp
+                        
                     </Link>
                     .
                   </p>
