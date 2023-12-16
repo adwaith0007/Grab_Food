@@ -1,35 +1,96 @@
-import React, { useState } from "react";
-import axios from "axios";
-import { userDataProps } from "../../types";
+import React, { ChangeEvent, FormEvent, useState } from "react";
+
+import Axios from "axios";
+// import { userDataProps } from "../../types";
 import { Navbar } from "../../components";
 import '../../index.css'
 import foodimg from "../../assets/login_food.png";
 import { Link } from "react-router-dom";
 
 
-// interface signupProps{ 
-//   user : userDataProps
-// }
+
+
 
 
 const Signup = () => {
 
-//   const [userData,setUserData ] = useState({
-//     fname:"",
-//     lname:"",
-//     userid:"",
+  const url= "http://localhost:5000/register"
+
+  const [userData, setUserData] = useState({
+    fname:"",
+    lname:"",
+    email:"",
+    password:"",
+    conform_password:"",
+    phone:"",
+    userid:"",
 
 
-//   })
+  })
+
+
+  
 
   // function handleUserForm(e){
+
+  //   e.preventDefault();
 
   //   const newdata = {...userData}
 
   //   newdata[e.target.id] = e.target.value
   //   setUserData(newdata)
+  //   console.log(newdata)
 
   // }
+
+  const handleUserForm = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setUserData((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  // async function userSubmit (e){
+  //   e.preventDefault();
+  //   try{
+
+  //     await Axios.post(url,{
+  //       fname : userData.fname,
+  //       lname: userData.lname,
+  //       email:userData.email,
+  //       password:userData.password,
+  //       conform_password:userData.conform_password,
+  //       phone:userData.phone 
+  //     })
+      
+  //     .then(res => {
+  //       console.log(res.data)
+  //     })
+  //   } catch(error) {
+  //     console.error('Registration failed:', error);
+  //   }
+
+  // };
+
+  const userSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const response = await Axios.post(url, {
+        fname: userData.fname,
+        lname: userData.lname,
+        email: userData.email,
+        password: userData.password,
+        conform_password: userData.conform_password,
+        phone: userData.phone,
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
+  };
+
+
+
+
 
   return (
     <div className="bg-[#e5d9ca] h-[100vh]    w-full ">
@@ -52,7 +113,7 @@ const Signup = () => {
                 <h1>Register</h1>
               </div>
 
-              <form className="max-w-sm mx-auto mt-5 ">
+              <form onSubmit={userSubmit} className="max-w-sm mx-auto mt-5 ">
                 <div className="grid md:grid-cols-2 md:gap-6">
                   <div className="mb-2">
                     <label
@@ -65,6 +126,7 @@ const Signup = () => {
                       type="text"
                       id="fname"
                       name="fname"
+                      onChange={(e)=> handleUserForm(e)}
                       value={userData.fname}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                       required
@@ -82,6 +144,7 @@ const Signup = () => {
                       type="text"
                       id="lname"
                       name="lname"
+                      onChange={(e)=> handleUserForm(e)}
                       value={userData.lname}
                       className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                       required
@@ -100,6 +163,8 @@ const Signup = () => {
                     type="email"
                     id="email"
                     name="email"
+                    onChange={(e)=> handleUserForm(e)}
+                    value={userData.email}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     placeholder="name@gmail.com"
                     required
@@ -117,6 +182,8 @@ const Signup = () => {
                     type="password"
                     id="password"
                     name="password"
+                    value={userData.password}
+                    onChange={(e)=> handleUserForm(e)}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     required
                   />
@@ -133,6 +200,8 @@ const Signup = () => {
                     type="password"
                     id="conform_password"
                     name="conform_password"
+                    value={userData.conform_password}
+                    onChange={(e)=> handleUserForm(e)}
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     required
                   />
@@ -149,7 +218,9 @@ const Signup = () => {
                     type="tel"
                     id="phone"
                     name="phone"
-                    pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
+                    value={userData.phone}
+                    onChange={(e)=> handleUserForm(e)}
+                    
                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                     required
                   />
