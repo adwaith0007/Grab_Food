@@ -1,11 +1,55 @@
 import React from "react";
 import { Navbar } from "../../components";
-import '../../index.css'
+import '../../index.css';
+import Axios from "axios";
 import foodimg from "../../assets/login_food.png";
 import { Link } from "react-router-dom";
 import glogo from '../../assets/googlelogo.png'
+import { ChangeEvent, FormEvent, useState } from "react";
 
 const Login = () => {
+
+  const url= "http://localhost:5000/login"
+
+  const [userLogin, setUserLogin] = useState({
+    fname:"",
+    lname:"",
+    email:"",
+    password:"",
+    conform_password:"",
+    phone:"",
+    userid:"",
+
+
+  })
+
+ 
+
+  const handleLoginForm = (e: ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setUserLogin((prevData) => ({ ...prevData, [id]: value }));
+  };
+
+  const loginSubmit = async (e) => {
+
+    e.preventDefault();
+
+    try {
+      const response = await Axios.post(url, {
+        
+       
+        email: userLogin.email,
+        password: userLogin.password,
+        
+                         
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.error('Registration failed:', error);
+    }
+  };
+
   return (
     <div className="bg-[#e5d9ca] h-[100vh] w-full ">
       <Navbar />
@@ -29,7 +73,7 @@ const Login = () => {
                 <h1>Login</h1>
               </div>
 
-              <form className="max-w-sm mx-auto mt-10 ">
+              <form onSubmit={loginSubmit} className="max-w-sm mx-auto mt-10 ">
               <div className="mb-5">
                 <label
                   htmlFor="email"
@@ -41,6 +85,7 @@ const Login = () => {
                   type="email"
                   id="email"
                   name="email"
+                  onChange={(e)=> handleLoginForm(e)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   placeholder="name@gmail.com"
                   required
@@ -58,6 +103,7 @@ const Login = () => {
                   type="password"
                   id="password"
                   name="password"
+                  onChange={(e)=> handleLoginForm(e)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 "
                   required
                 />

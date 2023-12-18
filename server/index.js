@@ -1,14 +1,18 @@
 const express = require('express');
 const mongoose = require ("mongoose");
 const bodyParser = require('body-parser');
+// const { check ,validationResult } = require('express-validator')
+const { body, validationResult } = require('express-validator');
 const cors = require("cors");
-const userRouter = require("./Routes/userRoutes.js")
-const adminRouter = require("./Routes/adminRoutes.js")
+const userRouter = require("./Routes/UserRoutes.js")
+const adminRouter = require("./Routes/AdminRoutes.js")
+
 const app = express();
 const port = 5000 
 
 
 
+app.use(bodyParser.json());
 
 app.use(
   cors({
@@ -17,16 +21,47 @@ app.use(
     optionsSuccessStatus: 200,
   })
 );
-app.use(bodyParser.json());
 
 
 app.use("/",userRouter)
+
+
+
+app.listen(port,()=>{
+    console.log(`Express app listening on port ${port}`)
+})
+
+mongoose.connect("mongodb://127.0.0.1:27017/grabfoodmern")
+.then(() => {
+    console.log("Db connection established");
+  })
+  .catch((err) => {
+    console.log("connection error: " + err);
+  });
+
+
+
+
+
+  // app.post('/register', (req, res) => {
+
+  //   console.log(req.body)
+
+  // })
+
+
+
+
+
+
+
+
 
 const registeredUsers = []; // This array will store registered user data
 
 app.post('/register', (req, res) => {
   const { fname, email, password ,phone  } = req.body;
-  const full = req.body;
+ 
 
   // Process registration data (e.g., store in an array, save to a database, etc.)
   const newUser = {
@@ -44,10 +79,14 @@ app.post('/register', (req, res) => {
 });
 
 // Endpoint to retrieve and display registered users (for demonstration purposes)
-app.get('/registeredUsers', (req, res) => {
+app.get('/register', (req, res) => {
   res.json({ users: registeredUsers });
   res.json({ full });
 });
+
+
+
+
 
 
 app.get('/',(req,res)=>{
@@ -58,19 +97,5 @@ app.get('/',(req,res)=>{
 
 
 
-app.get('/user/signup',(req,res)=>{
-  res.send(req.body)
-})
 
 
-app.listen(port,()=>{
-    console.log(`Express app listening on port ${port}`)
-})
-
-mongoose.connect("mongodb://127.0.0.1:27017/grabfoodmern")
-.then(() => {
-    console.log("Db connection established");
-  })
-  .catch((err) => {
-    console.log("connection error: " + err);
-  });

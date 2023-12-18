@@ -2,7 +2,7 @@ import React from "react";
 import { Navbar } from "../../components";
 import otpimg from "../../assets/otp.png";
 import { Link } from "react-router-dom";
-import glogo from '../../assets/googlelogo.png'
+
 
 const Otp = () => {
   return (                                                        
