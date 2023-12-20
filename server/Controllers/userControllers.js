@@ -1,8 +1,9 @@
 const UserModel = require("../Models/userModels");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 const {body,validationResult} = require('express-validator');
-
+const { CreateToken } = require("../jwt/createToken");
 
 
 
@@ -91,9 +92,10 @@ exports.verifyLogin_post = async (req, res) => {
 
           if (passwordMatch) {
               const token = createToken(userData._id);
-              res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000, path: '/', domain: 'yourdomain.com' });
+              res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 });
+              // document.cookie('hi')
               res.json({ success: true, message: 'Login successful' });
-              console.log('good');
+              console.log(token);
           } else {
               res.status(401).json({ success: false, message: 'Invalid credentials' });
               console.log('not good');
@@ -104,5 +106,49 @@ exports.verifyLogin_post = async (req, res) => {
   } catch (error) {
       console.error("Error during login:", error.message);
       res.status(500).json({ success: false, message: "Internal Server Error" });
+  }
+};
+
+
+
+exports.login = async (req, res) => {
+  const { email, password } = req.body;
+
+  
+
+  //check if the input field is empty
+  if (!email || !password) {
+    return res.json({ message: "enter username and password" });
+  }
+
+  //get user
+  const user = await UserModel.findOne(
+    { email: email },
+    { _id: 1, hashedPassword: 1, isBlocked: 1 }
+  );
+
+  //check user
+  if (!user) res.json({ success: false, message: "user not found" });
+
+  //check whether blocked
+  if (user.isBlocked)
+    return res.json({ success: false, message: "user is blocked" });
+
+    console.log(user);
+
+  try {
+    if (await bcrypt.compare(password, user.hashedPassword)) {
+      //generate token
+      const token = CreateToken(user._id.toString());
+      res
+        .status(200)
+        .cookie("token", token, {
+          expires: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+          httpOnly: true,
+        })
+        .json({ success: true, message: "login successful", token: token });
+    } else return res.json({ success: false, message: "login failed" });
+  } catch (error) {
+    console.log("error with bcrypt compare");
   }
 };

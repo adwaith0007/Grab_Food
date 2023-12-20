@@ -1,17 +1,20 @@
 const express = require('express');
 const mongoose = require ("mongoose");
 const bodyParser = require('body-parser');
+const cookieParser = require("cookie-parser");
 // const { check ,validationResult } = require('express-validator')
 const { body, validationResult } = require('express-validator');
 const cors = require("cors");
 const userRouter = require("./Routes/UserRoutes.js")
 const adminRouter = require("./Routes/AdminRoutes.js")
 
+require("dotenv").config();
+
 const app = express();
 const port = 5000 
 
 
-
+app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(
@@ -20,6 +23,7 @@ app.use(
     credentials: true,
     optionsSuccessStatus: 200,
   })
+  
 );
 
 
@@ -81,7 +85,7 @@ app.post('/register', (req, res) => {
 // Endpoint to retrieve and display registered users (for demonstration purposes)
 app.get('/register', (req, res) => {
   res.json({ users: registeredUsers });
-  res.json({ full });
+  
 });
 
 
@@ -89,9 +93,10 @@ app.get('/register', (req, res) => {
 
 
 
-app.get('/',(req,res)=>{
-    res.send('Hello World')
-})
+// app.get('/',(req,res)=>{
+//     // res.send('Hello World')
+//     res.send(process.env.SECRET_KEY);
+// })
 
 
 

@@ -8,8 +8,27 @@ import Login from './page/userPages/Login';
 import Home from './page/userPages/Home';
 import Signup from './page/userPages/Signup';
 import Otp from './page/userPages/Otp';
+import { useEffect } from 'react';
 
 function App() {
+
+  useEffect(() => {
+    // The server will set the cookie when you access this URL
+    fetch('http://localhost:5000/', {
+      method: 'GET',
+      credentials: 'include',
+    })
+      .then((response) => {
+        if (response.ok) {
+          console.log('Cookie set successfully');
+        } else {
+          console.error('Failed to set cookie');
+        }
+      })
+      .catch((error) => {
+        console.error('Error setting cookie:', error);
+      });
+  }, []);
   return (
 
     <Router>

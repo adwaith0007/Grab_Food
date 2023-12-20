@@ -18,17 +18,24 @@ router.post('/register',
     // }
 })
 
-router.post('/login',(req,res)=>{
-    userController.verifyLogin_post(req, res);
-})
+// router.post('/login',(req,res)=>{
+//     userController.verifyLogin_post(req, res);
+// })
+
+router.post("/login", (req, res) => {
+    userController.login(req, res);
+  });
 
 // router.post('/register',(req,res)=>{
 //     console.log(req.body);
 //     console.log("user");
 // })
 
-router.get('/',(req,res)=>{
+router.get('/hi',(req,res)=>{
     res.send("Hello World")
+
+    res.cookie('foo','bar')
+    
 })
 
 
